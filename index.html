@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle Vibes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --beige: #F5F5DC;
+            --brown: #8B4513;
+            --burlywood: #DEB887;
+            --white: #ffffff;
+        }
+
+        [data-bs-theme="light"] {
+            --body-bg: var(--white);
+            --nav-bg: var(--beige);
+            --hero-bg: var(--burlywood);
+            --text-color: var(--brown);
+            --card-bg: white;
+        }
+
+        [data-bs-theme="dark"] {
+            --body-bg: #1a1a1a;
+            --nav-bg: #2d1810;
+            --hero-bg: #3d2b1f;
+            --text-color: var(--beige);
+            --card-bg: #2d2d2d;
+        }
+
+        [data-bs-theme="dark"] .fixed-caption h1,
+        [data-bs-theme="dark"] .fixed-caption p {
+            color: var(--white);
+        }
+
+        [data-bs-theme="dark"] .fixed-caption .btn-primary {
+            background-color: var(--white);
+            border-color: var(--white);
+            color: var(--brown);
+        }
+
+        [data-bs-theme="dark"] .fixed-caption .btn-primary:hover {
+            background-color: var(--beige);
+            border-color: var(--beige);
+        }
+        
+        body {
+            background-color: var(--body-bg);
+            transition: all 0.3s ease;
+            padding-top: 76px;
+        }
+        
+        .navbar {
+            background-color: var(--nav-bg) !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+        }
+
+        .navbar-brand {
+            color: var(--brown) !important;
+            font-weight: bold;
+        }
+
+        .navbar-toggler {
+            border-color: var(--brown);
+        }
+
+        .navbar-collapse {
+            background-color: var(--nav-bg);
+        }
+
+        .nav-link {
+            color: var(--brown) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--burlywood) !important;
+        }
+
+        /* Hero Section with Fixed Caption */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            margin-top: -76px;
+            overflow: hidden;
+        }
+
+        .carousel-fade .carousel-inner {
+            height: 100%;
+        }
+
+        .carousel-fade .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            transition: opacity 0.6s ease-in-out;
+            opacity: 0;
+        }
+
+        .carousel-fade .carousel-item.active {
+            opacity: 1;
+        }
+
+        .carousel-fade .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fixed-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            z-index: 11;
+            width: 5%;
+        }
+
+        .carousel-indicators {
+            z-index: 11;
+            bottom: 20px;
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                padding: 1rem;
+                border-radius: 0 0 10px 10px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+
+            .theme-switch {
+                margin: 0.5rem 0;
+            }
+
+            .navbar .btn-primary {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+        
+        .btn-primary {
+            background-color: var(--burlywood);
+            border-color: var(--burlywood);
+            color: var(--brown);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--beige);
+            border-color: var(--brown);
+            color: var(--brown);
+        }
+        
+        .btn-secondary {
+            background-color: var(--brown);
+            border-color: var(--brown);
+            color: var(--beige);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--burlywood);
+            border-color: var(--brown);
+            color: var(--brown);
+        }
+        
+        .card {
+            border: none;
+            background-color: var(--card-bg);
+            transition: all 0.3s ease;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.1);
+        }
+
+        .wellness-card,
+        .fashion-card {
+            background-size: cover;
+            background-position: center;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .wellness-card::before,
+        .fashion-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .card-body {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card .text-theme,
+        .card .card-text {
+            color: var(--white) !important;
+        }
+        
+        .newsletter-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 60px 0;
+            margin-top: 40px;
+        }
+
+        .newsletter-section .text-theme {
+            color: var(--white) !important;
+        }
+
+        .newsletter-section form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .text-theme {
+            color: var(--text-color) !important;
+        }
+
+        .theme-switch {
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--brown);
+            color: var(--brown);
+            margin: 0 15px;
+            display: inline-block;
+        }
+
+        [data-bs-theme="dark"] .dark-mode-icon {
+            display: none;
+        }
+
+        [data-bs-theme="light"] .light-mode-icon {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .fixed-caption {
+                padding: 1rem;
+                width: 95%;
+            }
+
+            .fixed-caption h1 {
+                font-size: 1.75rem;
+            }
+
+            .fixed-caption .lead {
+                font-size: 1rem;
+            }
+
+            .newsletter-section form .col-md-4,
+            .newsletter-section form .col-md-2 {
+                padding: 0 15px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Lifestyle Vibes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <div class="theme-switch" id="themeSwitch">
+                    <i class="fas fa-moon dark-mode-icon"></i>
+                    <i class="fas fa-sun light-mode-icon"></i>
+                </div>
+                <button class="btn btn-primary nav-subscribe">Subscribe</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Fixed Caption -->
+    <section class="hero-section">
+        <!-- Fixed Caption -->
+        <div class="fixed-caption">
+            <h1 class="display-4 fw-bold mb-4">Welcome to the Lifestyle Hub</h1>
+            <p class="lead mb-4">Explore trends, wellness, and living your best life</p>
+            <button class="btn btn-primary btn-lg">Get Started</button>
+        </div>
+
+        <!-- Carousel -->
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/images/foods.jpg" class="d-block" alt="Lifestyle Hub">
+                </div>
+                <div class="carousel-item">
+                    <img src="/images/gym.jpg" class="d-block" alt="Wellness">
+                </div>
+                <div class="carousel-item">
+                    <img src="/images/fashion.jpg" class="d-block" alt="Style & Fashion">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 wellness-card">
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-theme fw-bold mb-3">Latest in Wellness</h3>
+                            <p class="card-text mb-4">Discover the latest trends in wellness, from meditation techniques to fitness tips that keep you grounded</p>
+                            <a href="#" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 fashion-card">
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-theme fw-bold mb-3">Explore Fashion & Trends</h3>
+                            <p class="card-text mb-4">Stay updated with the latest fashion trends, style tips, and sustainable fashion choices</p>
+                            <a href="#" class="btn btn-primary">Discover More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 fashion-card">
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-theme fw-bold mb-3">Explore Fashion & Trends</h3>
+                            <p class="card-text mb-4">Stay updated with the latest fashion trends, style tips, and sustainable fashion choices</p>
+                            <a href="#" class="btn btn-primary">Discover More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="text-theme fw-bold mb-4">Join Our Community</h2>
+                    <p class="text-theme mb-4">Subscribe for the latest lifestyle updates</p>
+                    <form class="row g-3 justify-content-center">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="First Name">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-secondary w-100">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('themeSwitch').addEventListener('click', function() {
+            const html = document.documentElement;
+            if (html.getAttribute('data-bs-theme') === 'light') {
+                html.setAttribute('data-bs-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-bs-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+
+        // Tambahkan di bagian script
+const myCarousel = new bootstrap.Carousel(document.getElementById('heroCarousel'), {
+    interval: 5000,
+    wrap: true, // Memastikan carousel berputar kembali ke awal setelah slide terakhir
+    ride: 'carousel'
+});
+    </script>
+</body>
+</html>
